@@ -1,6 +1,6 @@
 # app.py
 
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -9,7 +9,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 import models
-from flask import jsonify
 
 
 @app.route('/appraisal', methods=['GET'])
@@ -47,6 +46,69 @@ def get_items():
 def get_itemrefs():
     itemrefs = models.Itemref.query.all()
     return jsonify({"itemrefs": [itemref.serialize() for itemref in itemrefs]})
+
+
+@app.route('/campaign', methods=['POST'])
+def create_campaign():
+    data = request.json
+    new_campaign = models.Campaign(**data)
+    db.session.add(new_campaign)
+    db.session.commit()
+    return jsonify({"campaign": new_campaign.serialize()}), 201
+
+
+@app.route('/appraisal', methods=['POST'])
+def create_appraisal():
+    data = request.json
+    new_appraisal = models.Appraisal(**data)
+    db.session.add(new_appraisal)
+    db.session.commit()
+    return jsonify({"appraisal": new_appraisal.serialize()}), 201
+
+
+@app.route('/campaign_character', methods=['POST'])
+def create_campaign_character():
+    data = request.json
+    new_campaign_character = models.CampaignCharacter(**data)
+    db.session.add(new_campaign_character)
+    db.session.commit()
+    return jsonify({"campaign_character": new_campaign_character.serialize()}), 201
+
+
+@app.route('/character', methods=['POST'])
+def create_character():
+    data = request.json
+    new_character = models.Character(**data)
+    db.session.add(new_character)
+    db.session.commit()
+    return jsonify({"character": new_character.serialize()}), 201
+
+
+@app.route('/gold', methods=['POST'])
+def create_gold():
+    data = request.json
+    new_gold = models.Gold(**data)
+    db.session.add(new_gold)
+    db.session.commit()
+    return jsonify({"gold": new_gold.serialize()}), 201
+
+
+@app.route('/item', methods=['POST'])
+def create_item():
+    data = request.json
+    new_item = models.Item(**data)
+    db.session.add(new_item)
+    db.session.commit()
+    return jsonify({"item": new_item.serialize()}), 201
+
+
+@app.route('/itemref', methods=['POST'])
+def create_itemref():
+    data = request.json
+    new_itemref = models.Itemref(**data)
+    db.session.add(new_itemref)
+    db.session.commit()
+    return jsonify({"itemref": new_itemref.serialize()}), 201
 
 
 if __name__ == '__main__':
