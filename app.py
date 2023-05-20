@@ -64,7 +64,6 @@ def add_campaign():
     return {"id": new_campaign.id}, 201
 
 
-
 @app.route('/appraisal', methods=['POST'])
 def create_appraisal():
     data = request.json
