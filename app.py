@@ -50,14 +50,19 @@ def get_itemrefs():
 
 @app.route('/campaign', methods=['POST'])
 def add_campaign():
+    data = request.get_json()
+    # Remove id if it's in the data, let DB handle it
+    data.pop('id', None)
+
     new_campaign = models.Campaign(
-        name=request.json['name'],
-        ap=request.json['ap'],
-        start_date=request.json['start_date']
+        name=data.get('name'),
+        ap=data.get('ap'),
+        start_date=data.get('start_date')
     )
     db.session.add(new_campaign)
     db.session.commit()
-    return {'id': new_campaign.id}, 201
+    return {"id": new_campaign.id}, 201
+
 
 
 @app.route('/appraisal', methods=['POST'])
