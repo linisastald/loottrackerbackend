@@ -49,12 +49,15 @@ def get_itemrefs():
 
 
 @app.route('/campaign', methods=['POST'])
-def create_campaign():
-    data = request.json
-    new_campaign = models.Campaign(**data)
+def add_campaign():
+    new_campaign = models.Campaign(
+        name=request.json['name'],
+        ap=request.json['ap'],
+        start_date=request.json['start_date']
+    )
     db.session.add(new_campaign)
     db.session.commit()
-    return jsonify({"campaign": new_campaign.serialize()}), 201
+    return {'id': new_campaign.id}, 201
 
 
 @app.route('/appraisal', methods=['POST'])
