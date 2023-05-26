@@ -1,2 +1,6 @@
 Flask
 flask-sqlalchemy
+BeautifulSoup4
+psycopg2
+requests
+flask_cors
