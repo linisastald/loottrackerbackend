@@ -1,5 +1,5 @@
 import requests
-from bs4 import BeautifulSoup4
+from bs4 import BeautifulSoup
 import psycopg2
 
 # Proficiency Categories
@@ -29,7 +29,7 @@ def scrape_data(base_url, categories, item_type):
     for category in categories:
         url = f"{base_url}?Category={category}"
         response = requests.get(url)
-        soup = BeautifulSoup4(response.text, 'html.parser')
+        soup = BeautifulSoup(response.text, 'html.parser')
 
         # Identify the item categories
         item_categories = soup.find_all('h1')
