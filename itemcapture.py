@@ -19,7 +19,7 @@ misc_categories = ["AdventuringGear", "Alchemical Reagents", "Alchemical Remedie
 
 # Set up a database connection
 try:
-    conn = psycopg2.connect(database='mydatabase', user='myusername', password='mypassword')
+    conn = psycopg2.connect(database='pathfinder_loot_tracker', user='plt', password='alltheloot')
     cur = conn.cursor()
 except psycopg2.Error as e:
     print("Error while connecting to PostgreSQL", e)
