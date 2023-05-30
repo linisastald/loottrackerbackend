@@ -8,10 +8,9 @@ from flask_cors import CORS
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://plt:alltheloot@localhost:5432/pathfinder_loot_tracker'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_POOL_SIZE'] = 30
 db = SQLAlchemy(app)
 CORS(app, resources={r"/*": {"origins": "http://192.168.0.64:666"}})
-
-
 
 
 @app.route('/appraisal', methods=['GET'])
