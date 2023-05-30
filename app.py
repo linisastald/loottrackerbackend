@@ -210,5 +210,15 @@ def update_itemref(name):
     return jsonify({"itemref": itemref.serialize()}), 200
 
 
+@app.route('/item/status/<status>', methods=['GET'])
+def get_items_by_status(status):
+    if status.lower() == 'none':
+        items = models.Item.query.filter(models.Item.status.is_(None)).all()
+    else:
+        items = models.Item.query.filter_by(status=status).all()
+    return jsonify({"items": [item.serialize() for item in items]})
+
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
