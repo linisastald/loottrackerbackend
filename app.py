@@ -120,5 +120,95 @@ def create_itemref():
     return jsonify({"itemref": new_itemref.serialize()}), 201
 
 
+@app.route('/appraisal/<int:id>', methods=['PATCH'])
+def update_appraisal(id):
+    data = request.json
+    appraisal = models.Appraisal.query.get(id)
+
+    if not appraisal:
+        return {"error": "Appraisal not found"}, 404
+
+    for key, value in data.items():
+        setattr(appraisal, key, value)
+
+    db.session.commit()
+    return jsonify({"appraisal": appraisal.serialize()}), 200
+
+
+@app.route('/campaign/<int:id>', methods=['PATCH'])
+def update_campaign(id):
+    data = request.json
+    campaign = models.Campaign.query.get(id)
+
+    if not campaign:
+        return {"error": "Campaign not found"}, 404
+
+    for key, value in data.items():
+        setattr(campaign, key, value)
+
+    db.session.commit()
+    return jsonify({"campaign": campaign.serialize()}), 200
+
+
+@app.route('/character/<int:id>', methods=['PATCH'])
+def update_character(id):
+    data = request.json
+    character = models.Character.query.get(id)
+
+    if not character:
+        return {"error": "Character not found"}, 404
+
+    for key, value in data.items():
+        setattr(character, key, value)
+
+    db.session.commit()
+    return jsonify({"character": character.serialize()}), 200
+
+
+@app.route('/gold/<int:id>', methods=['PATCH'])
+def update_gold(id):
+    data = request.json
+    gold = models.Gold.query.get(id)
+
+    if not gold:
+        return {"error": "Gold not found"}, 404
+
+    for key, value in data.items():
+        setattr(gold, key, value)
+
+    db.session.commit()
+    return jsonify({"gold": gold.serialize()}), 200
+
+
+@app.route('/item/<int:id>', methods=['PATCH'])
+def update_item(id):
+    data = request.json
+    item = models.Item.query.get(id)
+
+    if not item:
+        return {"error": "Item not found"}, 404
+
+    for key, value in data.items():
+        setattr(item, key, value)
+
+    db.session.commit()
+    return jsonify({"item": item.serialize()}), 200
+
+
+@app.route('/itemref/<string:name>', methods=['PATCH'])
+def update_itemref(name):
+    data = request.json
+    itemref = models.Itemref.query.get(name)
+
+    if not itemref:
+        return {"error": "Itemref not found"}, 404
+
+    for key, value in data.items():
+        setattr(itemref, key, value)
+
+    db.session.commit()
+    return jsonify({"itemref": itemref.serialize()}), 200
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
